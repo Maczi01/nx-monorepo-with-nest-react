@@ -2,12 +2,14 @@
 import styles from './app.module.css';
 
 import NxWelcome from './nx-welcome';
+import {AppRoutes} from "./routes";
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="react-nest-monorepo" />
-    </div>
+    <>
+      {/*<NxWelcome title="react-nest-monorepo" />*/}
+      <AppRoutes />
+    </>
   );
 }
 
