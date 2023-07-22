@@ -3,13 +3,12 @@ import styles from './app.module.css';
 
 import NxWelcome from './nx-welcome';
 import {AppRoutes} from "./routes";
+import {Outlet} from "react-router-dom";
+import {DefaultLayout} from "./layouts/default-layouts/DefaultLayout";
 
 export function App() {
   return (
-    <>
-      {/*<NxWelcome title="react-nest-monorepo" />*/}
-      <AppRoutes />
-    </>
+    <AppRoutes/>
   );
 }
 

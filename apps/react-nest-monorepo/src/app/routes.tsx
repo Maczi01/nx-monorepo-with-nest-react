@@ -1,18 +1,30 @@
-import {Route, Routes} from "react-router-dom";
-import React from "react";
-import {Home} from "./features/Home/Home";
-import {DefaultLayout} from "./layouts/default-layouts/DefaultLayout";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Home } from './features/Home/Home';
+import { DefaultLayout } from './layouts/default-layouts/DefaultLayout';
+import { Users } from './features/Users/Users';
+import { Settings } from './features/Settings/Settings';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: 'users',
+        element: <Users />,
+      },
+      {
+        path: 'settings',
+        element: <Settings />,
+      },
+    ],
+  },
+]);
 
 export const AppRoutes = () => {
-  return (<Routes>
-      <Route
-        path={'/'}
-        element={
-          <DefaultLayout>
-            <Home/>
-          </DefaultLayout>
-        }
-      />
-    </Routes>
-  )
-}
+  return <RouterProvider router={router} />;
+};
