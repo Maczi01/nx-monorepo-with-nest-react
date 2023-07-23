@@ -1,18 +1,10 @@
 import {
   ADD_TODO_ITEM,
-  ADD_TODO_ITEMS,
-  FETCH_TODOS_FAILURE,
-  FETCH_TODOS_REQUEST,
-  FETCH_TODOS_SUCCESS,
+  FETCH_TODOS,
   TodoActionTypes,
   TOGGLE_TODO_ITEM,
-} from './models/actions';
-
-export interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+} from './actions';
+import { Todo } from '@react-nest-monorepo/types';
 
 interface TodoState {
   loading: boolean;
@@ -24,12 +16,12 @@ const defaultState: TodoState = {
   loading: false,
   todos: [
     {
-      id: 1,
+      id: '1',
       title: 'Play a game',
       completed: false,
     },
     {
-      id: 2,
+      id: '2',
       title: 'eat pizzza',
       completed: true,
     },
@@ -39,20 +31,17 @@ const defaultState: TodoState = {
 
 export const reducer = (state = defaultState, action: TodoActionTypes) => {
   switch (action.type) {
-    case FETCH_TODOS_REQUEST:
+    case FETCH_TODOS:
       return { ...state };
-    case ADD_TODO_ITEMS:
-      return { ...state, ...action.todos };
     case ADD_TODO_ITEM:
-      // userId
-      // id
-      // title
-      // completed
+      console.log('ADD_TODO_ITEM', action);
+
       return {
         ...state,
         todos: [...state.todos, { ...action.payload }],
       };
     case TOGGLE_TODO_ITEM:
+      console.log('TOGGLE_TODO_ITEM', action);
       return {
         ...state,
         todos: state.todos.map((todo) => {

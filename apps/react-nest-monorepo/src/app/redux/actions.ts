@@ -1,41 +1,30 @@
-import { Dispatch } from 'redux';
+import { Todo } from '@react-nest-monorepo/types';
 
-import {
-  FETCH_TODOS_REQUEST,
-  FETCH_TODOS_SUCCESS,
-  FETCH_TODOS_FAILURE,
-  AppActions,
-  ADD_TODO_REQUEST,
-  ADD_TODO_ITEM,
-  ADD_TODO_ITEMS,
-  TOGGLE_TODO_ITEM,
-} from './models/actions';
-import { Todo } from './reducer';
+export const FETCH_TODOS = 'FETCH_TODOS';
+export const ADD_TODO_ITEM = 'ADD_TODO_ITEM';
+export const TOGGLE_TODO_ITEM = 'TOGGLE_TODO_ITEM';
 
-// const requestTodos = (): AppActions => ({
-//   type: FETCH_TODOS_REQUEST,
-//   loading: true,
-//   todos: [],
-//   error: '',
-// });
-// const addTodo = (todo: Todo): AppActions => ({
-//   type: ADD_TODO_REQUEST,
-//   loading: true,
-//   todos: [],
-//   error: '',
-// });
-// const receiveTodos = (todos: Todo[]): AppActions => ({
-//   type: FETCH_TODOS_SUCCESS,
-//   loading: false,
-//   todos: todos,
-//   error: '',
-// });
-// const invalidateTodos = (): AppActions => ({
-//   type: FETCH_TODOS_FAILURE,
-//   loading: false,
-//   todos: [],
-//   error: 'Unable to fetch todo list',
-// });
+interface TodoAsync {
+  loading: boolean;
+  todos: Todo[];
+  payload: any;
+  error: string;
+}
+
+interface FetchTodos extends TodoAsync {
+  type: typeof FETCH_TODOS;
+}
+
+interface AddTodoItem extends TodoAsync {
+  type: typeof ADD_TODO_ITEM;
+}
+
+interface ToggleTodoItem extends TodoAsync {
+  type: typeof TOGGLE_TODO_ITEM;
+}
+
+export type TodoActionTypes = FetchTodos | ToggleTodoItem | AddTodoItem;
+export type AppActions = TodoActionTypes;
 
 export function addTodo(todo: Todo) {
   return {
@@ -44,25 +33,11 @@ export function addTodo(todo: Todo) {
   };
 }
 
-export function addTodos(todos: any) {
-  return {
-    type: ADD_TODO_ITEMS,
-    todos: todos,
-  };
-}
-
-export function toggleTodo(id: string) {
+export const toggleTodo = (id: string) => {
   return {
     type: TOGGLE_TODO_ITEM,
-    id: id,
+    payload: {
+      id,
+    },
   };
-}
-
-// export const boundRequestTodos = () => {
-//   return (dispatch: Dispatch<AppActions>) => {
-//     dispatch(requestTodos());
-//     return fetch(`https://jsonplaceholder.typicode.com/todos?_limit=5`)
-//       .then((res) => res.json())
-//       .then((json) => dispatch(receiveTodos(json)));
-//   };
-// };
+};

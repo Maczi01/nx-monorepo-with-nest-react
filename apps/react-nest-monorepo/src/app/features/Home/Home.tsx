@@ -13,7 +13,7 @@ export const Home = () => {
   const handleAction = () => {
     dispatch(
       addTodo({
-        id: 3,
+        id: '3',
         title: 'string',
         completed: true,
       }),
@@ -35,7 +35,12 @@ export const Home = () => {
         }}
       >
         {todos?.map((todo: any) => (
-          <TodoItem key={todo.id} title={todo.title} checked={todo.checked} />
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            title={todo.title}
+            completed={todo.checked}
+          />
         ))}
       </Paper>
     </>

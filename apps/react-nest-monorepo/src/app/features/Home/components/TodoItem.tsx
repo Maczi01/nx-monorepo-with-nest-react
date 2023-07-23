@@ -8,14 +8,15 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useDispatch } from 'react-redux';
+import { toggleTodo } from '../../../redux/actions';
+import { Todo } from '@react-nest-monorepo/types';
 
-export const TodoItem = ({
-  title = 'Default Author',
-  checked = true,
-}: {
-  title: string;
-  checked: boolean;
-}) => {
+export const TodoItem = ({ id, title, completed }: Todo) => {
+  const dispatch = useDispatch();
+  const handleToggleTodo = (todoId: string) => {
+    dispatch(toggleTodo(todoId));
+  };
   return (
     <>
       <ListItem alignItems="center">
@@ -25,7 +26,8 @@ export const TodoItem = ({
             name={'name'}
             tabIndex={-1}
             disableRipple
-            checked={checked}
+            onClick={() => handleToggleTodo(id)}
+            checked={completed}
           />
         </ListItemIcon>
         <ListItemText>
