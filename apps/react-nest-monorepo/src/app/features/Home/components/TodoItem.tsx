@@ -10,10 +10,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 export const TodoItem = ({
-  author = 'Default Author',
+  title = 'Default Author',
   checked = true,
 }: {
-  author: string;
+  title: string;
   checked: boolean;
 }) => {
   return (
@@ -30,7 +30,7 @@ export const TodoItem = ({
         </ListItemIcon>
         <ListItemText>
           <Typography component="span" variant="inherit" color={'textPrimary'}>
-            {author}
+            {title}
           </Typography>
         </ListItemText>
         <EditIcon style={{ fontSize: '1rem' }} />

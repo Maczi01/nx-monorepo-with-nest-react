@@ -1,14 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
-import {AppRoutes} from "./routes";
-import {Outlet} from "react-router-dom";
-import {DefaultLayout} from "./layouts/default-layouts/DefaultLayout";
+import { AppRoutes } from './routes';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 export function App() {
   return (
-    <AppRoutes/>
+    <Provider store={store}>
+      <AppRoutes />
+    </Provider>
   );
 }
 
