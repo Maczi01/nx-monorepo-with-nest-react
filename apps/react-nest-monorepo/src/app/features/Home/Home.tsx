@@ -1,3 +1,11 @@
+import { TodoItem } from './components/TodoItem';
+import { Paper } from '@mui/material';
+
 export const Home = () => {
-  return <h1>Welcome nx</h1>
-}
+  return (
+    <Paper sx={{ width: '30vw', margin: 3, padding: 2 }}>
+      <TodoItem />
+      <TodoItem />
+    </Paper>
+  );
+};
