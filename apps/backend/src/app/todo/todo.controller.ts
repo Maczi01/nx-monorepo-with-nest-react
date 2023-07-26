@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { Todo } from '@react-nest-monorepo/types';
 
 @Controller('todo')
 export class TodoController {
@@ -13,7 +22,7 @@ export class TodoController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Todo[] {
     return this.todoService.findAll();
   }
 
