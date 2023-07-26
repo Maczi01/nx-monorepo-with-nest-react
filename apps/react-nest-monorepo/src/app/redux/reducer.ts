@@ -2,7 +2,10 @@ import {
   ADD_TODO_ITEM,
   DELETE_TODO_ITEM,
   EDIT_TODO_TITLE,
-  FETCH_TODOS,
+  ERROR,
+  SET,
+  START,
+  STOP,
   TodoActionTypes,
   TOGGLE_TODO_ITEM,
 } from './actions';
@@ -16,25 +19,34 @@ interface TodoState {
 
 const defaultState: TodoState = {
   loading: false,
-  todos: [
-    {
-      id: '1',
-      title: 'Play a game',
-      completed: false,
-    },
-    {
-      id: '2',
-      title: 'eat pizzza',
-      completed: true,
-    },
-  ],
+  todos: [],
   error: '',
 };
 
-export const reducer = (state = defaultState, action: TodoActionTypes) => {
+export const reducer = (state = defaultState, action: any) => {
   switch (action.type) {
-    case FETCH_TODOS:
-      return { ...state };
+    case START:
+      return {
+        ...state,
+        loading: true,
+        todos: defaultState.todos,
+        error: defaultState.error,
+      };
+    case SET:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    case STOP:
+      return {
+        ...state,
+        loading: defaultState.loading,
+      };
+    case ERROR:
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     case ADD_TODO_ITEM:
       return {
         ...state,

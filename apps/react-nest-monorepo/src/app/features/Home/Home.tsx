@@ -1,27 +1,32 @@
 import { TodoItem } from './components/TodoItem';
-import { Box, Button, buttonClasses, Paper } from '@mui/material';
+import { Box, Button, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../../redux/actions';
+import { createAsyncActionGetUsers } from '../../redux/actions';
 import { BasicModal } from './components/Modal';
+import { Todo } from '@react-nest-monorepo/types';
+import { AppState } from '../../redux/store';
 
 export const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const todos = useSelector((state) => state.todos);
+  // const todos = useSelector<RootState, string>(
+  const { todos, loading, error } = useSelector((state: AppState) => state);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [editedTodo, setEditedTodo] = useState(null);
-
+  const [editedTodo, setEditedTodo] = useState<Todo | null>(null);
+  console.log('todos: ', todos);
   const onClose = () => {
     setOpen(false);
     setEditedTodo(null);
   };
 
-  const handleEdit = (todo: any) => {
+  const handleEdit = (todo: Todo) => {
     setEditedTodo(todo);
     setOpen(true);
   };
+
+  useEffect(() => {
+    dispatch(createAsyncActionGetUsers());
+  }, [dispatch]);
 
   return (
     <Box display="flex" justifyContent="center" flexDirection="column" m={2}>
@@ -36,12 +41,14 @@ export const Home = () => {
           padding: 2,
         }}
       >
-        {todos?.map((todo: any) => (
+        {loading && <div>Loading...</div>}
+        {!!error && <div>Error</div>}
+        {todos.map((todo: Todo) => (
           <TodoItem
             key={todo.id}
             id={todo.id}
             title={todo.title}
-            completed={todo.checked}
+            completed={todo.completed}
             handleEdit={handleEdit}
           />
         ))}
